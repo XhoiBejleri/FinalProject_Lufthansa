@@ -7,15 +7,15 @@
 	},
 	"item": [
 		{
-			"name": "Admin Endpoints",
+			"name": "Job Endpoints",
 			"item": [
 				{
-					"name": "Get Users",
+					"name": "Get Jobs",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/admin/users",
+							"raw": "http://localhost:8080/api/v1/jobs",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -24,20 +24,19 @@
 							"path": [
 								"api",
 								"v1",
-								"admin",
-								"users"
+								"jobs"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Users with Filters",
+					"name": "Get Jobs by ID",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/admin/users?role=EMPLOYER&page=0&size=10\n",
+							"raw": "http://localhost:8080/api/v1/jobs/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -46,34 +45,81 @@
 							"path": [
 								"api",
 								"v1",
-								"admin",
-								"users"
-							],
-							"query": [
-								{
-									"key": "role",
-									"value": "EMPLOYER"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "10\n"
+								"jobs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Tester\",\n  \"description\": \"Test and find bugs in software applications.\",\n  \"location\": \"Los Angeles\",\n  \"salary\": 55000.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/jobs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"jobs"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete User",
+					"name": "Update Job details",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Tester\",\n  \"description\": \"Test and find bugs in software applications.\",\n  \"location\": \"Los Angeles\",\n  \"salary\": 65000.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/jobs/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"jobs",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Job",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/admin/users/1",
+							"raw": "http://localhost:8080/api/v1/jobs/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -82,8 +128,7 @@
 							"path": [
 								"api",
 								"v1",
-								"admin",
-								"users",
+								"jobs",
 								"1"
 							]
 						}
@@ -130,16 +175,16 @@
 			]
 		},
 		{
-			"name": "Employer Endpoints",
+			"name": "Application Endpoints",
 			"item": [
 				{
-					"name": "Post a Job",
+					"name": "Apply for Job",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Software Engineer\",\n  \"description\": \"Develop and maintain software applications.\",\n  \"location\": \"New York\",\n  \"salary\": 75000.00\n}",
+							"raw": "{\n  \"resume\": \"http://example.com/resume.pdf\",\n  \"jobId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -147,7 +192,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/employer/jobs",
+							"raw": "http://localhost:8080/api/v1/applications?jobId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -156,94 +201,12 @@
 							"path": [
 								"api",
 								"v1",
-								"employer",
-								"jobs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add Review for Job",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"rating\": 5,\n  \"comment\": \"Great candidate experience!\",\n  \"jobId\": 1,\n  \"employerId\": 1\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/employer/jobs/1/reviews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"employer",
-								"jobs",
-								"1",
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Jobs",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/employer/jobs",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"employer",
-								"jobs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Jobs with Filters",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/jobseeker/jobs?title=Engineer&location=NYC",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"jobseeker",
-								"jobs"
+								"applications"
 							],
 							"query": [
 								{
-									"key": "title",
-									"value": "Engineer"
-								},
-								{
-									"key": "location",
-									"value": "NYC"
+									"key": "jobId",
+									"value": "1"
 								}
 							]
 						}
@@ -251,12 +214,12 @@
 					"response": []
 				},
 				{
-					"name": "Get Applications for Job",
+					"name": "Update Application Status",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/employer/jobs/2/applications",
+							"raw": "http://localhost:8080/api/v1/applications/13/status?status=Approved",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -265,20 +228,52 @@
 							"path": [
 								"api",
 								"v1",
-								"employer",
-								"jobs",
-								"2",
-								"applications"
+								"applications",
+								"13",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Approved"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Review from a Job",
+					"name": "Get Applications for a Job Seeker",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/applications?jobSeekerId=2&page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"applications"
+							],
+							"query": [
+								{
+									"key": "jobSeekerId",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -352,24 +347,15 @@
 			]
 		},
 		{
-			"name": "Job Seeker Endpoints",
+			"name": "Review Endpoints",
 			"item": [
 				{
-					"name": "Apply for Job",
+					"name": "Reviews for Job",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"resume\": \"http://example.com/resume.pdf\",\n  \"jobId\": 1\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/jobseeker/jobs/1/apply",
+							"raw": "http://localhost:8080/api/v1/reviews?jobId=1&page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -378,22 +364,33 @@
 							"path": [
 								"api",
 								"v1",
-								"jobseeker",
-								"jobs",
-								"1",
-								"apply"
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "jobId",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Available Jobs",
+					"name": "Get Reviews by Rating",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/jobseeker/jobs",
+							"raw": "http://localhost:8080/api/v1/reviews?jobId=1&rating=5&page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -402,8 +399,25 @@
 							"path": [
 								"api",
 								"v1",
-								"jobseeker",
-								"jobs"
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "jobId",
+									"value": "1"
+								},
+								{
+									"key": "rating",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -412,10 +426,19 @@
 				{
 					"name": "Get Available Jobs with Filters",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\": 4,\n  \"comment\": \"Great for Junior Developers!\",\n  \"jobId\": 1,\n  \"employerId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/jobseeker/jobs?title=Engineer&location=NYC&page=0&size=10\n",
+							"raw": "http://localhost:8080/api/v1/reviews?jobId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -424,51 +447,13 @@
 							"path": [
 								"api",
 								"v1",
-								"jobseeker",
-								"jobs"
+								"reviews"
 							],
 							"query": [
 								{
-									"key": "title",
-									"value": "Engineer"
-								},
-								{
-									"key": "location",
-									"value": "NYC"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "10\n"
+									"key": "jobId",
+									"value": "1"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Applications by Job Seeker",
-					"request": {
-						"auth": {
-							"type": "basic"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/jobseeker/applications",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"jobseeker",
-								"applications"
 							]
 						}
 					},
@@ -510,6 +495,128 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "User Endpoints",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User with Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users?role=EMPLOYER&page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "EMPLOYER"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication Endpoint",
+			"item": [
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"jobseeker\",\n  \"password\": \"jobseeker1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

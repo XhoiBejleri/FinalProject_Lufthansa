@@ -27,13 +27,34 @@ public class JobService {
         return jobMapper.toJobDTO(savedJob);
     }
 
-    public Page<JobDTO> getJobsByEmployer(User employer, Pageable pageable) {
-        Page<Job> jobs = jobRepository.findByEmployer(employer, pageable);
+    public Page<JobDTO> searchJobs(String title, String location, Pageable pageable) {
+        Page<Job> jobs = jobRepository.findByTitleContainingOrLocationContaining(title, location, pageable);
         return jobs.map(jobMapper::toJobDTO);
     }
 
-    public Page<JobDTO> searchJobs(String keyword, String location, Pageable pageable) {
-        Page<Job> jobs = jobRepository.findByTitleContainingOrLocationContaining(keyword, location, pageable);
+    public JobDTO getJobById(Long jobId) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        return jobMapper.toJobDTO(job);
+    }
+
+    public JobDTO updateJob(Long jobId, JobDTO jobDTO) {
+        Job existingJob = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        existingJob.setTitle(jobDTO.getTitle());
+        existingJob.setDescription(jobDTO.getDescription());
+        existingJob.setLocation(jobDTO.getLocation());
+        existingJob.setSalary(jobDTO.getSalary());
+        Job updatedJob = jobRepository.save(existingJob);
+        return jobMapper.toJobDTO(updatedJob);
+    }
+
+    public void deleteJob(Long jobId) {
+        jobRepository.deleteById(jobId);
+    }
+
+    public Page<JobDTO> getJobsByEmployer(User employer, Pageable pageable) {
+        Page<Job> jobs = jobRepository.findByEmployer(employer, pageable);
         return jobs.map(jobMapper::toJobDTO);
     }
 }

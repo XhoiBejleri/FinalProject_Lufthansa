@@ -1,4 +1,4 @@
-package org.example.jobportal_spring_finalproject.security;
+package org.example.jobportal_spring_finalproject.controller;
 
 import org.example.jobportal_spring_finalproject.service.CustomUserDetailsService;
 import org.example.jobportal_spring_finalproject.utils.JwtUtil;
